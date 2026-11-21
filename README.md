@@ -2,7 +2,7 @@
 
 **Aluna** · Lenitha Borges da Silva
 
-**Aplicação no Render** · Pendente de publicação.
+**Aplicação no Render** · [chamados-ti-lenitha.onrender.com](https://chamados-ti-lenitha.onrender.com)
 
 **Contas de teste** · Pendentes de criação no projeto Firebase. Preencha os e-mails abaixo após o cadastro e compartilhe as senhas de avaliação em canal privado.
 
