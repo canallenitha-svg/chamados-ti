@@ -1,9 +1,8 @@
 export const firebaseConfig = {
-  apiKey: "AIzaSyD8Tl9u5HGAZ6-iYWEfN9g05WCSdgB4ncc",
-  authDomain: "chamados-a318d.firebaseapp.com",
-  projectId: "chamados-a318d",
-  storageBucket: "chamados-a318d.firebasestorage.app",
-  messagingSenderId: "571816721972",
-  appId: "1:571816721972:web:4ea67a40495786ad155461",
-  measurementId: "G-6MDY31TXSL",
+  apiKey: "AIzaSyDT5LF0EaMfXJLkZkxfVFoL4lyDTn-jbA8",
+  authDomain: "chamados-ti-rbac-a97d1.firebaseapp.com",
+  projectId: "chamados-ti-rbac-a97d1",
+  storageBucket: "chamados-ti-rbac-a97d1.firebasestorage.app",
+  messagingSenderId: "217657332571",
+  appId: "1:217657332571:web:f25f31f47e909a0f31807e",
 };
