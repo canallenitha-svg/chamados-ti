@@ -4,13 +4,13 @@
 
 **Aplicação no Render** · [chamados-ti-lenitha.onrender.com](https://chamados-ti-lenitha.onrender.com)
 
-**Contas de teste** · Pendentes de criação no projeto Firebase. Preencha os e-mails abaixo após o cadastro e compartilhe as senhas de avaliação em canal privado.
+**Contas de teste** · Contas criadas no Firebase para avaliação. As senhas são compartilhadas em particular.
 
 | Perfil | E-mail de teste |
 | --- | --- |
-| User | A cadastrar |
-| Técnico / Analista de TI | A cadastrar |
-| Admin | A cadastrar |
+| User | user.avaliacao@chamados-ti.example |
+| Técnico / Analista de TI | tecnico.avaliacao@chamados-ti.example |
+| Admin | admin.avaliacao@chamados-ti.example |
 
 ## Configurar o Firebase
 
