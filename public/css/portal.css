@@ -1,0 +1,20 @@
+[hidden] { display: none !important; }
+.login-panel, .portal { position: relative; margin: 36px auto; width: min(100% - 32px, 1040px); }
+.login-panel { max-width: 440px; }
+.login-panel h1 { margin: 12px 0 22px; }
+.portal-header, .portal-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.portal-header { justify-content: space-between; }
+.portal section, .portal article { margin-top: 18px; }
+.portal article { overflow-wrap: anywhere; }
+.portal article p { white-space: pre-wrap; }
+.portal form, .login-panel form { display: grid; gap: 12px; margin: 12px 0; }
+.portal label, .login-panel label { display: block; }
+.portal :is(input, select, textarea), .login-panel input {
+  display: block; width: 100%; margin-top: 4px; padding: 9px;
+  font: inherit; color: var(--text); background: var(--surface-solid);
+  border: 1px solid var(--border-strong); border-radius: var(--radius-sm);
+}
+.portal textarea { resize: vertical; }
+.portal select { min-width: 140px; }
+.portal .portal-actions select { width: auto; }
+button:disabled { cursor: wait; opacity: 0.55; }

@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Entrar · HelpDesk TI</title>
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/portal.css">
+  <script type="module" src="./js/login.js"></script>
+</head>
+<body>
+  <div class="bg-glow" aria-hidden="true"></div>
+  <main class="login-panel card">
+    <p class="brand-text">HelpDesk<strong>TI</strong></p>
+    <h1>Acesse sua conta</h1>
+    <form id="login-form">
+      <label>Nome <span class="muted">(para cadastrar)</span><input name="nome" autocomplete="name" maxlength="120"></label>
+      <label>E-mail<input name="email" type="email" autocomplete="email" required></label>
+      <label>Senha<input name="senha" type="password" autocomplete="current-password" required></label>
+      <div class="portal-actions">
+        <button class="btn btn-primary" type="submit" disabled>Entrar</button>
+        <button class="btn btn-secondary" id="register" type="button" disabled>Criar conta</button>
+      </div>
+    </form>
+    <button class="btn btn-secondary btn-block" id="google" disabled>Entrar com Google</button>
+    <p id="feedback" role="status">Conectando ao Firebase…</p>
+  </main>
+</body>
+</html>

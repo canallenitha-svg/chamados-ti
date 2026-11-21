@@ -1,0 +1,84 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function ownProfile() {
+      return get(/databases/$(database)/documents/usuarios/$(request.auth.uid)).data;
+    }
+
+    function hasRole(roles) {
+      return signedIn() && ownProfile().perfil in roles;
+    }
+
+    match /usuarios/{uid} {
+      allow get: if signedIn() && (request.auth.uid == uid || hasRole(['admin']));
+      allow list: if hasRole(['admin']);
+      allow create: if signedIn() && request.auth.uid == uid
+        && request.resource.data.keys().hasOnly(['uid', 'nome', 'email', 'perfil'])
+        && request.resource.data.uid == uid
+        && request.resource.data.nome is string
+        && request.resource.data.nome.size() >= 1 && request.resource.data.nome.size() <= 120
+        && request.resource.data.email is string
+        && request.resource.data.email == request.auth.token.email
+        && request.resource.data.perfil == 'user';
+      allow update: if hasRole(['admin']) && uid != request.auth.uid
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['perfil'])
+        && request.resource.data.perfil in ['user', 'tecnico', 'admin'];
+    }
+
+    match /chamados/{id} {
+      function validDetails(ticket) {
+        return ticket.titulo is string && ticket.titulo.size() >= 3 && ticket.titulo.size() <= 150
+          && ticket.descricao is string && ticket.descricao.size() > 0 && ticket.descricao.size() <= 4000
+          && ticket.setor is string && ticket.setor.size() <= 60
+          && ticket.prioridade in ['baixa', 'media', 'alta', 'critica'];
+      }
+
+      function validService(ticket) {
+        return ticket.status in ['Aberto', 'Em Atendimento', 'Resolvido']
+          && ticket.parecerTecnico is string && ticket.parecerTecnico.size() <= 4000
+          && (ticket.tecnicoResponsavel == resource.data.tecnicoResponsavel
+            || (resource.data.tecnicoResponsavel == null && ticket.tecnicoResponsavel == request.auth.uid))
+          && (ticket.status == 'Aberto' || ticket.tecnicoResponsavel != null)
+          && ticket.atualizadoEm == request.time;
+      }
+
+      allow read: if signedIn() && (
+        resource.data.autorUid == request.auth.uid || hasRole(['tecnico', 'admin'])
+      );
+
+      allow create: if hasRole(['user', 'admin'])
+        && request.resource.data.keys().hasOnly([
+          'titulo', 'descricao', 'setor', 'prioridade', 'autorUid', 'autorNome', 'autorEmail',
+          'status', 'tecnicoResponsavel', 'parecerTecnico', 'criadoEm', 'atualizadoEm'
+        ])
+        && validDetails(request.resource.data)
+        && request.resource.data.autorUid == request.auth.uid
+        && request.resource.data.autorEmail == request.auth.token.email
+        && (request.resource.data.autorNome == ownProfile().nome
+          || request.resource.data.autorNome == request.auth.token.get('name', null))
+        && request.resource.data.autorNome is string
+        && request.resource.data.status == 'Aberto'
+        && request.resource.data.tecnicoResponsavel == null
+        && request.resource.data.parecerTecnico == ''
+        && request.resource.data.criadoEm == request.time
+        && request.resource.data.atualizadoEm == request.time;
+
+      allow update: if hasRole(['tecnico', 'admin'])
+        && request.resource.data.diff(resource.data).affectedKeys()
+          .hasOnly(['status', 'tecnicoResponsavel', 'parecerTecnico', 'atualizadoEm'])
+        && validService(request.resource.data);
+
+      allow update: if hasRole(['admin'])
+        && request.resource.data.diff(resource.data).affectedKeys()
+          .hasOnly(['titulo', 'descricao', 'setor', 'prioridade', 'atualizadoEm'])
+        && validDetails(request.resource.data)
+        && request.resource.data.atualizadoEm == request.time;
+
+      allow delete: if hasRole(['admin']);
+    }
+  }
+}

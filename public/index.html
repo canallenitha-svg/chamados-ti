@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chamados · HelpDesk TI</title>
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/portal.css">
+  <script type="module" src="./js/portal.js"></script>
+</head>
+<body>
+  <div class="bg-glow" aria-hidden="true"></div>
+  <main class="portal">
+    <header class="portal-header">
+      <div><span class="brand-text">HelpDesk<strong>TI</strong></span><h1>Chamados de TI</h1></div>
+      <div class="portal-actions" id="session" hidden>
+        <span id="identity"></span><span id="role" class="badge badge-purple"></span>
+        <button type="button" class="btn btn-secondary" id="logout">Sair</button>
+      </div>
+    </header>
+    <p id="feedback" role="status">Verificando sessão…</p>
+    <section id="new-ticket" class="card" hidden>
+      <h2>Novo chamado</h2>
+      <form id="ticket-form">
+        <label>Título<input name="titulo" required minlength="3" maxlength="150"></label>
+        <label>Descrição<textarea name="descricao" required maxlength="4000" rows="3"></textarea></label>
+        <label>Setor<input name="setor" maxlength="60"></label>
+        <label>Prioridade<select name="prioridade"></select></label>
+        <div><button class="btn btn-primary">Abrir chamado</button></div>
+      </form>
+    </section>
+    <section id="ticket-section" hidden>
+      <h2 id="ticket-heading">Chamados</h2>
+      <p id="summary"></p>
+      <div class="portal-actions">
+        <label>Buscar chamado<input type="search" id="search" placeholder="Título ou solicitante"></label>
+        <label>Status<select id="filter"></select></label>
+      </div>
+      <div id="tickets"></div>
+    </section>
+    <section id="user-management" class="card" hidden>
+      <h2>Gestão de Usuários</h2>
+      <div id="users"></div>
+    </section>
+    <template id="ticket-template">
+      <article class="card">
+        <div class="portal-header"><h3 data-title></h3><span class="badge badge-blue" data-status></span></div>
+        <p data-description></p>
+        <p data-author></p>
+        <p data-details></p>
+        <p data-service></p>
+        <form data-attendance hidden>
+          <label>Status<select name="status"></select></label>
+          <label>Parecer técnico<textarea name="parecer" maxlength="4000" rows="3"></textarea></label>
+          <div class="portal-actions">
+            <button class="btn btn-secondary" type="button" data-claim>Assumir chamado</button>
+            <button class="btn btn-primary">Salvar atendimento</button>
+          </div>
+        </form>
+        <details data-edit hidden>
+          <summary>Editar chamado</summary>
+          <form>
+            <label>Título<input name="titulo" required minlength="3" maxlength="150"></label>
+            <label>Descrição<textarea name="descricao" required maxlength="4000" rows="3"></textarea></label>
+            <label>Setor<input name="setor" maxlength="60"></label>
+            <label>Prioridade<select name="prioridade"></select></label>
+            <div><button class="btn btn-secondary">Salvar edição</button></div>
+          </form>
+        </details>
+        <button class="btn btn-danger" type="button" data-delete hidden>Excluir chamado</button>
+      </article>
+    </template>
+  </main>
+</body>
+</html>
